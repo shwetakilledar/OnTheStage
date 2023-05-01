@@ -1,7 +1,7 @@
-import moment from "moment-timezone";
+import moment from 'moment-timezone'
 
-export const formatToDateTimeLocal = "YYYY-MM-DDTHH:mm";
-export const formatDateTimeWithoutHour = "YYYY-MM-DD hh:mm:ss";
+export const formatToDateTimeLocal = 'YYYY-MM-DDTHH:mm'
+export const formatDateTime = 'YYYY-MM-DD hh:mm:ss'
 
 /**
  *
@@ -10,8 +10,8 @@ export const formatDateTimeWithoutHour = "YYYY-MM-DD hh:mm:ss";
  * This function formats the give datetime in given timezone
  */
 export const formatDateToTimeZone = (date: string, timeZone: string) => {
-  return moment.tz(date, "utc").tz(timeZone).format(formatToDateTimeLocal);
-};
+  return moment.tz(date, 'utc').tz(timeZone).format(formatToDateTimeLocal)
+}
 
 /**
  *
@@ -23,7 +23,6 @@ export const formatDateToTimeZone = (date: string, timeZone: string) => {
 export const formatCurrentDateTimeToUTC = (
   date: string,
   userCurrentTimeZone: string,
-  format: string
 ) => {
-  return moment(date).tz(userCurrentTimeZone).utc().format(format);
-};
+  return moment(date).tz(userCurrentTimeZone).utc().format(formatDateTime)
+}

@@ -1,12 +1,14 @@
 import { ChangeEvent, useState } from 'react'
-import {
-  formatCurrentDateTimeToUTC,
-  formatDateTimeWithoutHour,
-} from '../utils/date'
+import { DateTimeEditorProps } from './DateTimeEditor'
+import { formatCurrentDateTimeToUTC, formatDateToTimeZone } from '../utils/date'
 import moment from 'moment-timezone'
 
-export const useDateTimeEditor = () => {
-  const [date, setDate] = useState('')
+export const useDateTimeEditor = ({
+  utcDateTime,
+  timeZone,
+}: DateTimeEditorProps) => {
+  const defaultTime = formatDateToTimeZone(utcDateTime, timeZone)
+  const [date, setDate] = useState(defaultTime)
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value)
@@ -19,11 +21,7 @@ export const useDateTimeEditor = () => {
     }
 
     const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-    let dateToUtc = formatCurrentDateTimeToUTC(
-      date,
-      userTimeZone,
-      formatDateTimeWithoutHour,
-    )
+    let dateToUtc = formatCurrentDateTimeToUTC(date, userTimeZone)
 
     if (!moment(dateToUtc).isValid()) {
       alert('Invalid date')
@@ -41,14 +39,13 @@ export const useDateTimeEditor = () => {
       body: JSON.stringify(payload),
     })
       .then((response) => {
-        console.log(response.status)
-        // for now setting it to empty string
-        setDate('')
+        console.log(response)
+        setDate(date)
       })
       .catch((err) => {
         console.log(err)
       })
   }
 
-  return { onChange, onSave }
+  return { defaultTime, onChange, onSave }
 }

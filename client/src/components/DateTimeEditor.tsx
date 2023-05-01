@@ -1,20 +1,25 @@
 import { formatDateToTimeZone } from '../utils/date'
 import { useDateTimeEditor } from './useDateTimeEditor'
 
-interface DateTimeEditorProps {
+export interface DateTimeEditorProps {
   utcDateTime: string
   timeZone: string
 }
 
 const DateTimeEditor = ({ utcDateTime, timeZone }: DateTimeEditorProps) => {
-  const { onChange, onSave } = useDateTimeEditor()
+  const { defaultTime, onChange, onSave } = useDateTimeEditor({
+    utcDateTime,
+    timeZone,
+  })
   return (
-    <div style={{ display: 'flex', marginRight: '10px' }}>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
       <input
         type="datetime-local"
-        value={formatDateToTimeZone(utcDateTime, timeZone)}
+        value={defaultTime}
         onChange={onChange}
+        style={{ marginRight: '10px' }}
       />
+      <span style={{ fontSize: '12px', marginRight: '10px' }}>{timeZone}</span>
       <button onClick={onSave}>Save</button>
     </div>
   )
