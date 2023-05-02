@@ -24,5 +24,5 @@ export const formatCurrentDateTimeToUTC = (
   date: string,
   userCurrentTimeZone: string,
 ) => {
-  return moment(date).tz(userCurrentTimeZone).utc().format(formatDateTime)
+  return moment.tz(date, userCurrentTimeZone).utc().format(formatDateTime)
 }

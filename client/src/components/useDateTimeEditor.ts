@@ -3,11 +3,10 @@ import { DateTimeEditorProps } from './DateTimeEditor'
 import { formatCurrentDateTimeToUTC, formatDateToTimeZone } from '../utils/date'
 import moment from 'moment-timezone'
 
-interface useDateTimeEditorProps {
-  utcDateTime: string
-}
-
-export const useDateTimeEditor = ({ utcDateTime }: useDateTimeEditorProps) => {
+export const useDateTimeEditor = ({
+  utcDateTime,
+  timeZone,
+}: DateTimeEditorProps) => {
   const [date, setDate] = useState('')
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -19,8 +18,7 @@ export const useDateTimeEditor = ({ utcDateTime }: useDateTimeEditorProps) => {
     if (!date) {
       dateToUtc = utcDateTime
     } else {
-      const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-      dateToUtc = formatCurrentDateTimeToUTC(date, userTimeZone)
+      dateToUtc = formatCurrentDateTimeToUTC(date, timeZone)
     }
 
     if (!moment(dateToUtc).isValid()) {

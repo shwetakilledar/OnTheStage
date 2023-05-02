@@ -9,6 +9,7 @@ export interface DateTimeEditorProps {
 const DateTimeEditor = ({ utcDateTime, timeZone }: DateTimeEditorProps) => {
   const { onChange, onSave } = useDateTimeEditor({
     utcDateTime,
+    timeZone,
   })
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
