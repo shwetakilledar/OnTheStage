@@ -7,15 +7,14 @@ export interface DateTimeEditorProps {
 }
 
 const DateTimeEditor = ({ utcDateTime, timeZone }: DateTimeEditorProps) => {
-  const { defaultTime, onChange, onSave } = useDateTimeEditor({
+  const { onChange, onSave } = useDateTimeEditor({
     utcDateTime,
-    timeZone,
   })
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <input
         type="datetime-local"
-        value={defaultTime}
+        defaultValue={formatDateToTimeZone(utcDateTime, timeZone)}
         onChange={onChange}
         style={{ marginRight: '10px' }}
       />
